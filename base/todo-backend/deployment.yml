@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: TODO_BACKEND_IMAGE
+          image: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
           env:
             - name: PORT
               value: '3000'

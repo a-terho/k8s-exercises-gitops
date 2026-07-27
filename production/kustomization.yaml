@@ -38,5 +38,11 @@ images:
 - name: TODO_BACKEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
   newTag: prod-4.9
+- name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster
+  newTag: "4.10"
+- name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app
+  newTag: "4.10"
+- name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
+  newTag: "4.10"
 namespace: production
 namePrefix: prod-

@@ -21,7 +21,7 @@ spec:
             claimName: gke-dynamic-pvc
       containers:
         - name: todo-app
-          image: TODO_APP_IMAGE
+          image: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app
           volumeMounts:
             - name: app-cache
               mountPath: /app/cache

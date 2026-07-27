@@ -31,7 +31,7 @@ spec:
                 name: postgres-config
       containers:
         - name: apply-db-migrations
-          image: TODO_BACKEND_IMAGE
+          image: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
           command: ['npx', 'drizzle-kit', 'migrate']
           envFrom:
             - configMapRef:

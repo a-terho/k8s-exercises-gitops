@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: BROADCASTER_IMAGE
+          image: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster
           env:
             - name: NATS_URI
               value: 'my-nats-headless.nats.svc.cluster.local:4222'

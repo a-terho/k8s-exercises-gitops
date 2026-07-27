@@ -1,5 +1,0 @@
-kustomize:
-  images:
-  - europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster:main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
-  - europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app:main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
-  - europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend:main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8

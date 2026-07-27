@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+resources:
+  - gcr-auth-script.yaml
+  - image-updater.yaml
+patches:
+  - path: auth-script-patch.yaml
+    target:
+      kind: Deployment
+      name: argocd-image-updater-controller
+  - path: registries-patch.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-image-updater-config

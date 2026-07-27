@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gcs-backup-job
+  namespace: project
+spec:
+  schedule: '45 14 * * *'
+  timeZone: 'Europe/Helsinki'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: gcs-writer-ksa
+          restartPolicy: OnFailure
+          containers:
+            - name: create-db-backup
+              image: alterho/pg-gcloud-backup
+              envFrom:
+                - configMapRef:
+                    name: postgres-config
+                - secretRef:
+                    name: postgres-secret
+              command:
+                - sh
+                - -c
+                - >
+                  pg_dump --verbose --format=plain
+                  "postgres://postgres:$POSTGRES_PASSWORD@$DATABASE_HOST/postgres"
+                  | gcloud storage cp - "gs://$POSTGRES_GCLOUD_BUCKET/backup-$(date +%Y-%m-%d).sql"
+          # specs for GKE so the job lands only on specific nodes with WIF enabled
+          nodeSelector:
+            iam.gke.io/gke-metadata-server-enabled: 'true'
+          tolerations:
+            - key: workload
+              operator: Equal
+              value: backup
+              effect: NoSchedule

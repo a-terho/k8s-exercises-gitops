@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-image-updater-config
+  namespace: argocd
+data:
+  registries.conf: |
+    registries:
+      - name: Google Artifact Registry
+        prefix: europe-north1-docker.pkg.dev
+        api_url: https://europe-north1-docker.pkg.dev
+        credentials: ext:/scripts/gcr-auth.sh
+        credsexpire: 55m

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend-dep
+  namespace: project
+spec:
+  replicas: 1
+  strategy: # remove old pods before creating new ones
+    type: Recreate
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - name: todo-backend
+          image: TODO_BACKEND_IMAGE
+          env:
+            - name: PORT
+              value: '3000'
+            - name: MAX_TODO_LENGTH
+              value: '140'
+            - name: NATS_URI
+              value: 'my-nats-headless.nats.svc.cluster.local:4222'
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
+          resources:
+            requests:
+              cpu: 20m
+              memory: 96Mi
+            limits:
+              cpu: 150m
+              memory: 192Mi
+          livenessProbe:
+            httpGet:
+              path: '/healthz'
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: '/readyz'
+              port: 3000

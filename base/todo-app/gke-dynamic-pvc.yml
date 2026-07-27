@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gke-dynamic-pvc
+  namespace: project
+spec:
+  storageClassName: standard-rwo # GKE default StorageClass
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

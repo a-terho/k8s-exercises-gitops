@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-dep
+  namespace: project
+spec:
+  replicas: 1
+  strategy: # remove old pods before creating new ones
+    type: Recreate
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      volumes:
+        - name: app-cache
+          persistentVolumeClaim:
+            claimName: gke-dynamic-pvc
+      containers:
+        - name: todo-app
+          image: TODO_APP_IMAGE
+          volumeMounts:
+            - name: app-cache
+              mountPath: /app/cache
+              subPath: todo-app # use a subfolder inside the PV
+          envFrom:
+            - configMapRef:
+                name: backend-config
+          env:
+            - name: BACKEND_URL
+              value: 'http://$(BACKEND_HOST):$(BACKEND_PORT)'
+            - name: PICTURE_URL
+              value: 'https://picsum.photos/1200'
+            - name: PICTURE_TTL_MINS
+              value: '5'
+            - name: MAX_TODO_LENGTH
+              value: '140'
+          resources:
+            requests:
+              cpu: 20m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi

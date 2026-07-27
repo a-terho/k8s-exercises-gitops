@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # - broadcaster/secret.yml
+  - broadcaster/deployment.yml
+  - todo-app/backend-config.yml
+  - todo-app/gke-dynamic-pvc.yml
+  - todo-app/deployment.yml
+  - todo-app/service.yml
+  - todo-app/ingress.yml
+  - todo-app/random-article-job.yml
+  - todo-backend/postgres-config.yml
+  - todo-backend/postgres-secret.yml
+  - todo-backend/postgres-ss.yml
+  - todo-backend/deployment.yml
+  - todo-backend/service.yml
+  - todo-backend/postgres-migration-job.yml
+namespace: project

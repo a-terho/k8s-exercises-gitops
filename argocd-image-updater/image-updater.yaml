@@ -1,0 +1,49 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: production-image-updater
+  namespace: argocd
+spec:
+  commonUpdateSettings:
+    updateStrategy: semver
+    allowTags: 'regexp:^[0-9]+\.[0-9]+\.[0-9]+$'
+  applicationRefs:
+    - namePattern: 'project-production'
+      images:
+        - alias: BROADCASTER_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster'
+        - alias: TODO_APP_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app'
+        - alias: TODO_BACKEND_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend'
+  writeBackConfig:
+    method: 'git:secret:argocd/git-credentials-secret'
+    gitConfig:
+      repository: 'git@github.com:a-terho/k8s-exercises-gitops.git'
+      branch: 'main'
+      writeBackTarget: 'kustomize:./production'
+---
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: staging-image-updater
+  namespace: argocd
+spec:
+  commonUpdateSettings:
+    updateStrategy: newest-build
+    allowTags: 'regexp:^main-[a-f0-9]+$'
+  applicationRefs:
+    - namePattern: 'project-staging'
+      images:
+        - alias: BROADCASTER_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster'
+        - alias: TODO_APP_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app'
+        - alias: TODO_BACKEND_IMAGE
+          imageName: 'europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend'
+  writeBackConfig:
+    method: 'git:secret:argocd/git-credentials-secret'
+    gitConfig:
+      repository: 'git@github.com:a-terho/k8s-exercises-gitops.git'
+      branch: 'main'
+      writeBackTarget: 'kustomize:./staging'

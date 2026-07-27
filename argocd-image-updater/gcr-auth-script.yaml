@@ -6,7 +6,7 @@ metadata:
 data:
   gcr-auth.sh: |
     #!/bin/sh
-    TOKEN=$(curl -s -H "Metadata-Flavor: Google" \
+    TOKEN=$(wget -qO- --header="Metadata-Flavor: Google" \
       "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" \
       | sed -n 's/.*"access_token":"\([^"]*\)".*/\1/p')
     echo "oauth2accesstoken:${TOKEN}"

@@ -8,13 +8,12 @@ First make sure the Kubernetes cluster is running on GKE and `kubectl` points to
 
 Install ArgoCD and ArgoCD ImageUpdater to the cluster. ImageUpdater uses polling to scan for new images pushed to the container registry. You need to configure [registries-patch.yaml](argocd-image-updater/registries-patch.yaml) to have it point to correct `REGISTRY_LOCATION-docker.pkg.dev` for fields `prefix` and `api_url`.
 
-[registries-patch.yaml](argocd-image-updater/registries-patch.yaml) patches ArgoCD with custom registry configuration ([ref](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/#configuring-custom-registries)) to use a shell script ([gcr-auth-script.yaml](argocd-image-updater/gcr-auth-script.yaml)) to periodically generate credentials (OAuth access tokens) ([ref](https://argocd-image-updater.readthedocs.io/en/stable/basics/authentication/#using-a-script-to-generate-credentials)) using an approach which fetches them from GKE cluster's own metadata server with `curl` ([ref](https://docs.cloud.google.com/compute/docs/access/authenticate-workloads#applications)). Using `docker login` with OAuth access tokens authenticates to user `oauth2accesstoken`. This shell script is then patched onto `argocd-image-updater-controller` deployment.
+[registries-patch.yaml](argocd-image-updater/registries-patch.yaml) patches ArgoCD with custom registry configuration ([ref](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/#configuring-custom-registries)) to use a shell script ([gcr-auth-script.yaml](argocd-image-updater/gcr-auth-script.yaml)) to periodically generate credentials (OAuth access tokens) ([ref](https://argocd-image-updater.readthedocs.io/en/stable/basics/authentication/#using-a-script-to-generate-credentials)) using an approach which fetches them from GKE cluster's own metadata server with `wget` (`curl` is not available) ([ref](https://docs.cloud.google.com/compute/docs/access/authenticate-workloads#applications)). Using `docker login` with OAuth access tokens authenticates to user `oauth2accesstoken`. This shell script is then patched onto `argocd-image-updater-controller` deployment.
 
 ```bash
 kubectl create namespace argocd
 kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/config/install.yaml
 kubectl apply -k argocd-image-updater
 ```
 

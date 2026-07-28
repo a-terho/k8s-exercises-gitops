@@ -28,8 +28,8 @@ images:
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster
     newTag: main-8f45a2cfe1b517e3c2f50b7e6afe8232a3397716
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app
-    newTag: main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
+    newTag: main-8f45a2cfe1b517e3c2f50b7e6afe8232a3397716
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
-    newTag: main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
+    newTag: main-8f45a2cfe1b517e3c2f50b7e6afe8232a3397716
 namespace: staging
 namePrefix: stag-

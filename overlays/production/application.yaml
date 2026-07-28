@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/a-terho/k8s-exercises-gitops
-    path: production
+    path: 'overlays/production'
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

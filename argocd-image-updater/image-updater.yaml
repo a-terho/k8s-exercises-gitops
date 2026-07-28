@@ -21,7 +21,7 @@ spec:
     gitConfig:
       repository: 'git@github.com:a-terho/k8s-exercises-gitops.git'
       branch: 'main'
-      writeBackTarget: 'kustomization:/production'
+      writeBackTarget: 'kustomization:/overlays/production'
 ---
 apiVersion: argocd-image-updater.argoproj.io/v1alpha1
 kind: ImageUpdater
@@ -46,4 +46,4 @@ spec:
     gitConfig:
       repository: 'git@github.com:a-terho/k8s-exercises-gitops.git'
       branch: 'main'
-      writeBackTarget: 'kustomization:/staging'
+      writeBackTarget: 'kustomization:/overlays/staging'

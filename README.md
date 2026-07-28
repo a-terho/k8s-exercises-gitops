@@ -78,8 +78,8 @@ gcloud iam service-accounts add-iam-policy-binding \
 Add applications to the cluster with the following commands:
 
 ```bash
-kubectl apply -f staging/application.yaml
-kubectl apply -f production/application.yaml
+kubectl apply -f overlays/staging/application.yaml
+kubectl apply -f overlays/production/application.yaml
 ```
 
 The only additional resource that needs to be applied manually is the Secret manifest for the broadcaster resource. Follow the instructions in [brodcaster README.md](https://github.com/a-terho/k8s-exercises/blob/4.10/broadcaster/README.md) to setup Google Cloud Key Management Service (KMS) and apply `secret.yml` file directly to the relevant namespace (`staging` or `production`) with `kubectl apply -f secret.yml --namespace=<namespace>`.

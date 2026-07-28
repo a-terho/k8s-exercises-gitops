@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yml
-  - ./../base
+  - ./../../base
   - todo-backend/postgres-backup-cronjob.yml
 patches:
   - path: broadcaster/deployment.yml
@@ -30,10 +30,10 @@ replacements:
           name: backend-config
 images:
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster
-    newTag: "4.10"
+    newTag: 'prod-4.9'
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app
-    newTag: "4.10"
+    newTag: 'prod-4.9'
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
-    newTag: "4.10"
+    newTag: 'prod-4.9'
 namespace: production
 namePrefix: prod-

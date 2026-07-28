@@ -26,10 +26,10 @@ replacements:
           name: backend-config
 images:
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/broadcaster
-    newTag: main-bbed15b8f265124d30eb2965ca628bdd79fdf25c
+    newTag: main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-app
-    newTag: main-bbed15b8f265124d30eb2965ca628bdd79fdf25c
+    newTag: main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
   - name: europe-north1-docker.pkg.dev/dwk-gke-501808/docker-images/todo-backend
-    newTag: main-bbed15b8f265124d30eb2965ca628bdd79fdf25c
+    newTag: main-c1a5bfdc737111031b9083b17953b67aa9c9c9e8
 namespace: staging
 namePrefix: stag-

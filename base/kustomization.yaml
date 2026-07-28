@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   # - broadcaster/secret.yml
   - broadcaster/deployment.yml
+  - broadcaster/autoscaler.yml
   - todo-app/backend-config.yml
   - todo-app/gke-dynamic-pvc.yml
   - todo-app/deployment.yml
